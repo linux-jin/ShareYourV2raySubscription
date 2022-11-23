@@ -1,12 +1,12 @@
 <?php
 
 // configuration
-$url = '';
-$file = '';
-$file_premium = '';
-$key = '';
-$key_md5 = '';
-$shareurl = '';
+$url = 'index.php';
+$file = 'sub.txt';
+$file_premium = 'sub2.txt';
+$key = 'key.txt';
+$key_md5 = 'md5.txt';
+$shareurl = 'sub.php';
 
 function removeComment($content){
         // (\/\*.*\*\/)|(#.*?\n)|(\/\/.*?\n)|
@@ -26,7 +26,7 @@ function autoremarks($string){
     {
         if (str_contains($array_names[$i], "vmess://")) {
             $array_names[$i] = base64_decode(substr($array_names[$i], 8));//先截取前缀
-            $obj = json_decode($array_names[$i]); 
+            $obj = json_decode($array_names[$i]);
             $array_names[$i] = "<!--".$obj->{'ps'}."--->";//再base64 decode
         }else {
             $array_names[$i] = "<!--".urldecode(substr(strrchr($array_names[$i], '#'), 1))."--->";
@@ -38,7 +38,7 @@ function autoremarks($string){
     {
             $string_new=$string_new."\n".$array_names[$i]."\n".$array[$i]."\n";
     }
-    
+
     //debug 用的显示模组
     //for($i=0;$i<$num;++$i)
     //{
@@ -106,22 +106,22 @@ $text_key_md5 = file_get_contents($key_md5);
     <title>MySub公共订阅编辑器</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="bootstrap/css/thispage.css" rel="stylesheet">
+    <link href="bootstrap/thispage.css" rel="stylesheet">
     <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>-->
 
 
 </head>
 
 <body>
-    <div class="container"> 
+    <div class="container">
         <div class="page-header"><!--标题部分---->
             <h2>公共订阅编辑器</h2>
         </div>
         <p>支持 VMESS 和 SS 分享链接。每行放一个链接。每次保存,自动解析生成每条分享链接对应的别名</p>
-        
+
         <form action="" method="post"><!--文本框部分---->
             <div class ="form-group">
                         <!--<textarea name="text" type="text" style="width:600px;height:400px;overflow-x:visible;overflow-y:visible;">-->
@@ -130,7 +130,7 @@ $text_key_md5 = file_get_contents($key_md5);
                         <div id="emailHelp" class="form-text">密钥以MD5形式保存,如果忘记可以在本页面重设</div>
                         <br><input class="form-check-input" type="checkbox" value="yes" name="dontsavekeytf" id="savekeytf" />
                         <label class="form-check-label" for="savekeytf">不明文保存密码(勾选并保存将清除以前明文存储的密码）</label>
-                        
+
                         <br>
                 <button type="submit" class="btn btn-primary" name="action" onclick=""/>立即保存</button>
                 <input type="reset" class="btn btn-default"/>
@@ -138,7 +138,7 @@ $text_key_md5 = file_get_contents($key_md5);
                 <button type="button" class="btn btn-success" onclick="generatepwd()">一键生成密钥</button>
                 </form>
                 <br><br>
-                <form class="form-horizontal">       
+                <form class="form-horizontal">
                     <div class ="form-group">
                         <!--<label for="sharelink_premium">分享链接（Premium）</label>-->
                     <div class="col-sm-8">
@@ -161,35 +161,35 @@ $text_key_md5 = file_get_contents($key_md5);
                         document.getElementById('sharelink_premium').value = url + '?key=' + document.getElementById('accesskey').value + '&level=premium';
                         document.getElementById('sharelink').value = url + '?key=' + document.getElementById('accesskey').value;
                     };
-                    
+
                     function copysharelink() {
                         var copyText = document.getElementById('sharelink_premium');
-                        
+
                         /* Select the text field */
                         copyText.select();
                         copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
                         /* Copy the text inside the text field */
                         //navigator.clipboard.writeText(copyText.value);
-  
+
                         /* Alert the copied text */
                         alert("Copied the text: " + copyText.value+ "【请别忘记点击保存】");
                         };
-                        
+
                     function copysharelink2() {
                         var copyText = document.getElementById('sharelink');
-                        
+
                         /* Select the text field */
                         copyText.select();
                         copyText.setSelectionRange(0, 99999); /* For mobile devices */
-
+                        console.log(copyText.value);
                         /* Copy the text inside the text field */
-                        //navigator.clipboard.writeText(copyText.value);
-  
+                        navigator.clipboard.writeText(copyText.value);
+
                         /* Alert the copied text */
                         alert("Copied the text: " + copyText.value + "【请别忘记点击保存】");
                         };
-                          
+
                     function generatepwd() {
                             var pasArr = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9'];
                             var password = '';
@@ -201,9 +201,9 @@ $text_key_md5 = file_get_contents($key_md5);
                             document.getElementById('accesskey').value = password;
                             generatesharelink();
                         };
-                        
+
                     </script>
-                
+
             </div><br><br>
 
             <form action="" method="post"><!--文本框部分---->
@@ -228,7 +228,7 @@ $text_key_md5 = file_get_contents($key_md5);
                     </div>
                 <input type="submit" class="btn btn-primary" name="action2" onclick="savev2ray();"/>
                 <input type="reset" class="btn btn-default"/>
-                </form> 
+                </form>
             </div><br>
             </div>
             <footer class="footer"><!--脚注部分---->
