@@ -170,7 +170,7 @@ $text_key_md5 = file_get_contents($key_md5);
                         copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
                         /* Copy the text inside the text field */
-                        //navigator.clipboard.writeText(copyText.value);
+                        navigator.clipboard.writeText(window.location.origin + '/' + copyText.value);
 
                         /* Alert the copied text */
                         alert("Copied the text: " + copyText.value+ "【请别忘记点击保存】");
@@ -182,9 +182,8 @@ $text_key_md5 = file_get_contents($key_md5);
                         /* Select the text field */
                         copyText.select();
                         copyText.setSelectionRange(0, 99999); /* For mobile devices */
-                        console.log(copyText.value);
                         /* Copy the text inside the text field */
-                        navigator.clipboard.writeText(copyText.value);
+                        navigator.clipboard.writeText(window.location.origin + '/' + copyText.value);
 
                         /* Alert the copied text */
                         alert("Copied the text: " + copyText.value + "【请别忘记点击保存】");
