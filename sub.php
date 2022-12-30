@@ -12,6 +12,10 @@
         // (\/\*.*\*\/)|(#.*?\n)|(\/\/.*?\n)|
         return preg_replace("~\nvmess://.*~", '', $content);
     };
+    function removeVless($content){
+        // (\/\*.*\*\/)|(#.*?\n)|(\/\/.*?\n)|
+        return preg_replace("~\nvless://.*~", '', $content);
+    };
     function removeSS($content){
         // (\/\*.*\*\/)|(#.*?\n)|(\/\/.*?\n)|
         return preg_replace("~\nss://.*~", '', $content);
@@ -32,11 +36,13 @@
     }
 
     if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=ss')!==false) {
-       echo base64_encode(removeVmess(removeComment($str)));
+       echo base64_encode(removeVmess(removeVless(removeComment($str))));
     }
     else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=vmess')!==false) {
-       echo base64_encode(removeSS(removeComment($str)));
-    }else{
+       echo base64_encode(removeSS(removeVless(removeComment($str))));
+    }else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=vless')!==false) {
+        echo base64_encode(removeSS(removeVmess(removeComment($str))));
+     }else{
         echo base64_encode(removeComment($str));
     };
     };
