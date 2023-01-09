@@ -28,22 +28,26 @@
     };
     $key_md5_number = file_get_contents($key_md5, "r");
     if (($key_md5_number == md5($key_from_url["key"])) or ($key_md5_number == "")) {//判断url中是否传入key
-
-    if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'level=premium')!==false) {
-       $str = file_get_contents($file_premium, "r") or die("Unable to open file!");
-    } else {
-        $str = file_get_contents($file, "r") or die("Unable to open file!");
-    }
-
-    if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=ss')!==false) {
-       echo base64_encode(removeVmess(removeVless(removeComment($str))));
-    }
-    else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=vmess')!==false) {
-       echo base64_encode(removeSS(removeVless(removeComment($str))));
-    }else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=vless')!==false) {
-        echo base64_encode(removeSS(removeVmess(removeComment($str))));
-     }else{
-        echo base64_encode(removeComment($str));
-    };
+        if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'level=premium')!==false) {
+           $str = file_get_contents($file_premium, "r") or die("Unable to open file!");
+        } else {
+            $str = file_get_contents($file, "r") or die("Unable to open file!");
+        }
+    
+        if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=ss')!==false) {
+           echo base64_encode(removeVmess(removeVless(removeComment($str))));
+        }
+        else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=vmess')!==false) {
+           echo base64_encode(removeSS(removeVless(removeComment($str))));
+        } 
+        else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=vless')!==false) {
+            echo base64_encode(removeSS(removeVmess(removeComment($str))));
+        }
+        else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=qx')!==false) {
+            echo base64_encode(removeVless(removeComment($str)));
+        }
+        else {
+            echo base64_encode(removeComment($str));
+        };
     };
 ?>
