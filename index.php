@@ -34,7 +34,8 @@ function autoremarks($string){
             //shadowsocks链接直接截取remarks
         } //遍历地址数组,将地址全部转换为json（第一遍）
     }
-    $string_new = "<!----->\ntag= OpenWrt\n";
+    // $string_new = "<!----->\ntag= OpenWrt\n";
+    $string_new = "";
     for($i=0;$i<$num;++$i)
     {
             $string_new=$string_new."\n".$array_names[$i]."\n".$array[$i]."\n";
