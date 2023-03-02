@@ -50,6 +50,9 @@
         else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=qx')!==false) {
             echo base64_encode(removeVless(removeComment($str)));
         }
+        else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=specical')!==false) {
+            echo base64_encode(removeSS(removeVmess(removeVless(removeComment($str)))));
+        }
         else {
             echo base64_encode(removeComment($str));
         };
