@@ -16,6 +16,10 @@
         // (\/\*.*\*\/)|(#.*?\n)|(\/\/.*?\n)|
         return preg_replace("~\nvless://.*~", '', $content);
     };
+    function removeSSR($content){
+        // (\/\*.*\*\/)|(#.*?\n)|(\/\/.*?\n)|
+        return preg_replace("~\nssr://.*~", '', $content);
+    };
     function removeSS($content){
         // (\/\*.*\*\/)|(#.*?\n)|(\/\/.*?\n)|
         return preg_replace("~\nss://.*~", '', $content);
@@ -42,16 +46,16 @@
            echo base64_encode(removeVmess(removeVless(removeComment($str))));
         }
         else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=vmess')!==false) {
-           echo base64_encode(removeSS(removeVless(removeComment($str))));
+           echo base64_encode(removeSSR(removeSS(removeVless(removeComment($str)))));
         }
         else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=vless')!==false) {
-            echo base64_encode(removeSS(removeVmess(removeComment($str))));
+            echo base64_encode(removeSSR(removeSS(removeVmess(removeComment($str)))));
+        }
+        else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=specical')!==false) {
+            echo base64_encode(removeSSR(removeSS(removeVmess(removeVless(removeComment($str))))));
         }
         else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=qx')!==false) {
             echo base64_encode(removeVless(removeComment($str)));
-        }
-        else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=specical')!==false) {
-            echo base64_encode(removeSS(removeVmess(removeVless(removeComment($str)))));
         }
         else {
             echo base64_encode(removeComment($str));
