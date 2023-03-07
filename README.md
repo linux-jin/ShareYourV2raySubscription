@@ -28,9 +28,13 @@
 
 /sub.php?key=suijisuijisuiji&level=premium&type=ss
 
+[仅 trojan]
+
+/sub.php?key=suijisuijisuiji&level=premium&type=trojan
+
 [特殊节点（包含hysteria/naiveproxy等）]
 
-/sub.php?key=suijisuijisuiji&level=premium&type=special
+/sub.php?key=suijisuijisuiji&level=premium&type=else
 
 [支持 quantumultX 节点]
 
