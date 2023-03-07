@@ -28,6 +28,10 @@
         // (\/\*.*\*\/)|(#.*?\n)|(\/\/.*?\n)|
         return preg_replace("~\ntrojan://.*~", '', $content);
     };
+    function removeElse($content){
+        // (\/\*.*\*\/)|(#.*?\n)|(\/\/.*?\n)|
+        return preg_replace("~\nnaive\+https://.*~", '', $content);
+    };
     $url_query = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
     if(strpos($url_query, 'key')!==false){
         parse_str($url_query, $key_from_url);
@@ -47,22 +51,22 @@
         }
 
         if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=ss')!==false) {
-           echo base64_encode(removeTrojan(removeVmess(removeVless(removeComment($str)))));
+           echo base64_encode(removeElse(removeTrojan(removeVmess(removeVless(removeComment($str))))));
         }
         else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=vmess')!==false) {
-           echo base64_encode(removeTrojan(removeVless(removeSSR(removeSS(removeComment($str))))));
+           echo base64_encode(removeElse(removeTrojan(removeVless(removeSSR(removeSS(removeComment($str)))))));
         }
         else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=vless')!==false) {
-            echo base64_encode(removeTrojan(removeVmess(removeSSR(removeSS(removeComment($str))))));
+            echo base64_encode(removeElse(removeTrojan(removeVmess(removeSSR(removeSS(removeComment($str)))))));
         }
         else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=trojan')!==false) {
-            echo base64_encode(removeVmess(removeVless(removeSSR(removeSS(removeComment($str))))));
+            echo base64_encode(removeElse(removeVmess(removeVless(removeSSR(removeSS(removeComment($str)))))));
         }
         else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=else')!==false) {
             echo base64_encode(removeTrojan(removeVmess(removeVless(removeSSR(removeSS(removeComment($str)))))));
         }
         else if (strpos(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), 'type=qx')!==false) {
-            echo base64_encode(removeVless(removeComment($str)));
+            echo base64_encode(removeElse(removeVless(removeComment($str))));
         }
         else {
             echo base64_encode(removeComment($str));
