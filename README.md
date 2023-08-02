@@ -1,5 +1,8 @@
 # ShareYourV2raySubscription
 
+## Demo: https://share.sob.im
+## 请自建服务，以免自己的订阅泄露！！！
+
 <details>
 
 <summary>📫 公共订阅编辑器</summary>
